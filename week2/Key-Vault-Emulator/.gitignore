@@ -1,0 +1,10 @@
+# Certificates
+*.crt
+*.key
+*.pem
+*.pfx
+*.p12
+*.jks
+*.csr
+*.srl
+*.der 

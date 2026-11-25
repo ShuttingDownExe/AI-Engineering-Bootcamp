@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging (If you are not using standard uv packaging defaults)
+# Note: uv automatically injects a .gitignore inside the `dist/` folder it creates.
+# build/
+# dist/
+# *.egg-info/
+
+# Virtual environments
+# Note: uv automatically injects a .gitignore inside the `.venv/` folder it creates.
+.venv/
+
+# Environment variables & secrets
+.env
+.env.*
+
+# Inline tool caches
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+
+# IDE settings
+.vscode/
+.idea/
+
+# Uploads
+uploads/
+
+# HTTP Test files
+*.rest

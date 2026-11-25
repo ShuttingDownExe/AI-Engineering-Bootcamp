@@ -1,0 +1,349 @@
+/* Base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  color: #1f2937;
+  background: #ffffff;
+}
+
+#root {
+  width: 100%;
+  min-height: 100dvh;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Main layout */
+.chat-layout {
+  display: flex;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+/* Sidebar */
+#sessions_bar {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 240px;
+  flex-shrink: 0;
+  min-height: 0;
+  padding: 16px;
+  background: #f5f6f8;
+  border-right: 1px solid #e5e7eb;
+}
+
+.session-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+#sessions_bar button {
+  flex-shrink: 0;
+  padding: 10px 14px;
+  text-align: left;
+  overflow-wrap: anywhere;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: inherit;
+}
+
+#sessions_bar button:hover:not(:disabled) {
+  background: #e9edf3;
+}
+
+#sessions_bar button[aria-pressed="true"] {
+  background: #dbeafe;
+  border-color: #60a5fa;
+}
+
+/* Chat area */
+.chat-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 24px;
+}
+
+.chat-messages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  line-height: 1.6;
+}
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 12px;
+  min-height: 100%;
+  padding: 8px;
+}
+
+/* Message bubbles */
+.message-bubble {
+  width: fit-content;
+  max-width: 80%;
+  flex-shrink: 0;
+  padding: 12px 16px;
+  border-radius: 16px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  text-align: left;
+}
+
+.message-bubble.user {
+  align-self: flex-end;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.message-bubble.assistant {
+  align-self: flex-start;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  color: #1f2937;
+  white-space: normal;
+}
+
+/* Markdown */
+.message-bubble > :first-child {
+  margin-top: 0;
+}
+
+.message-bubble > :last-child {
+  margin-bottom: 0;
+}
+
+.message-bubble p {
+  margin: 0 0 12px;
+}
+
+.message-bubble h1,
+.message-bubble h2,
+.message-bubble h3,
+.message-bubble h4 {
+  margin: 20px 0 10px;
+  line-height: 1.3;
+}
+
+.message-bubble h1 {
+  font-size: 1.5em;
+}
+
+.message-bubble h2 {
+  font-size: 1.3em;
+}
+
+.message-bubble h3 {
+  font-size: 1.15em;
+}
+
+.message-bubble ul,
+.message-bubble ol {
+  margin: 8px 0 12px;
+  padding-left: 24px;
+}
+
+.message-bubble li + li {
+  margin-top: 4px;
+}
+
+.message-bubble a {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+.message-bubble blockquote {
+  margin: 12px 0;
+  padding-left: 12px;
+  border-left: 3px solid #9ca3af;
+  color: #4b5563;
+}
+
+.message-bubble code {
+  font-family: ui-monospace, monospace;
+  font-size: 0.9em;
+}
+
+.message-bubble :not(pre) > code {
+  padding: 2px 5px;
+  border-radius: 4px;
+  background: #e5e7eb;
+}
+
+.message-bubble pre {
+  max-width: 100%;
+  margin: 12px 0;
+  padding: 12px;
+  overflow-x: auto;
+  border-radius: 8px;
+  background: #e5e7eb;
+  white-space: pre;
+  overflow-wrap: normal;
+}
+
+.message-bubble table {
+  display: block;
+  max-width: 100%;
+  margin: 12px 0;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.message-bubble th,
+.message-bubble td {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  text-align: left;
+}
+
+.message-bubble th {
+  background: #e5e7eb;
+}
+
+.message-bubble img {
+  max-width: 100%;
+  height: auto;
+}
+
+.message-bubble hr {
+  margin: 16px 0;
+  border: 0;
+  border-top: 1px solid #d1d5db;
+}
+
+/* Prompt controls */
+.chat-composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex-shrink: 0;
+  padding-top: 16px;
+}
+
+/* Supports PromptWindow returning a wrapping div or form. */
+.chat-composer > div,
+.chat-composer > form {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.chat-composer input,
+.chat-composer textarea {
+  flex: 1;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  color: inherit;
+}
+
+.chat-composer textarea {
+  min-height: 48px;
+  max-height: 180px;
+  resize: vertical;
+}
+
+.chat-composer button {
+  flex-shrink: 0;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.chat-composer button:hover:not(:disabled) {
+  background: #1d4ed8;
+}
+
+[role="alert"] {
+  margin: 12px 0;
+  color: #b91c1c;
+}
+
+/* Smaller screens */
+@media (max-width: 640px) {
+  #sessions_bar {
+    width: 150px;
+    padding: 10px;
+  }
+
+  .chat-content {
+    padding: 12px;
+  }
+
+  .message-bubble {
+    max-width: 95%;
+  }
+
+  .chat-composer,
+  .chat-composer > div,
+  .chat-composer > form {
+    gap: 8px;
+  }
+}
+
+.prompt-drop-zone {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+}
+
+.prompt-drop-zone > form {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+}
+
+.drop-overlay {
+  position: absolute;
+  inset: -10px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  border: 2px dashed #2563eb;
+  border-radius: 14px;
+  background: rgba(37, 99, 235, 0.2);
+  color: #1d4ed8;
+  font-weight: 600;
+  pointer-events: none;
+}
