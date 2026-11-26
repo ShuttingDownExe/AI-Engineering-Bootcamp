@@ -2,6 +2,9 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import Request, Query
+from azure.core.exceptions import ResourceExistsError, ResourceNotFoundError
+from azure.storage.blob import ContentSettings
+from azure.storage.blob.aio import BlobServiceClient
 from starlette.concurrency import run_in_threadpool
 import aiofiles
 import httpx2
@@ -264,7 +267,14 @@ async def upload_file(
 
     temp_path = UPLOAD_DIR / f"{file_id}.part"
     suffix = Path(filename).suffix.lower()
-    final_path= UPLOAD_DIR / f"{file_id}{suffix}"
+
+    #---------------- Deprecated -----------------#
+    #final_path= UPLOAD_DIR / f"{file_id}{suffix}"
+    #---------------------------------------------#
+
+    blob_name = f"{file_id}{suffix}"
+    
+
 
     size = 0
     renamed = False
